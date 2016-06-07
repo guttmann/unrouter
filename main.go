@@ -103,7 +103,7 @@ func sendRequest(request *http.Request) *http.Response {
 }
 
 func sendRebootRequest(loginCookie *http.Cookie) {
-	url := "http://" + *routerIP + "/uir/rebo.html?Nrd=0"
+	url := "http://" + *routerIP + "/uir/rebo.htm?Nrd=0"
 	request, _ := http.NewRequest("GET", url, nil)
 	request.AddCookie(loginCookie)
 	sendRequest(request)
