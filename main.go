@@ -65,7 +65,7 @@ func checkSites() bool {
 }
 
 func checkSite(url string) int {
-	request, _ := http.NewRequest("GET", url, nil)
+	request, _ := http.NewRequest("HEAD", url, nil)
 
 	timeout := time.Duration(5 * time.Second)
 
