@@ -16,13 +16,19 @@ var (
 func main() {
 	setupFlags()
 
-	success := checkSites()
+	for {
+		log("Checking connectivity...")
+		success := checkSites()
 
-	if !success {
-		fmt.Println("Looks like the internet is down")
-		rebootRouter()
-	} else {
-		fmt.Println("Everything is fine")
+		if !success {
+			log("Looks like the internet is down")
+			rebootRouter()
+		} else {
+			log("Everything is fine")
+		}
+
+		log("Going to sleep")
+		time.Sleep(1 * time.Minute)
 	}
 }
 
@@ -32,6 +38,11 @@ func setupFlags() {
 	routerIP = flag.String("routerip", "", "Your router IP")
 
 	flag.Parse()
+}
+
+func log(message string) {
+	timestamp := time.Now().Format("Mon Jan 2 15:04:05 2006 MST")
+	fmt.Printf("[%s] %s\n", timestamp, message)
 }
 
 func checkSites() bool {
