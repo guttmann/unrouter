@@ -16,6 +16,8 @@ var (
 func main() {
 	setupFlags()
 
+	sleepTime := 1
+
 	for {
 		log("Checking connectivity...")
 		success := checkSites()
@@ -23,12 +25,14 @@ func main() {
 		if !success {
 			log("Looks like the internet is down")
 			rebootRouter()
+			sleepTime = sleepTime + 2
 		} else {
 			log("Everything is fine")
+			sleepTime = 1
 		}
 
-		log("Going to sleep")
-		time.Sleep(1 * time.Minute)
+		log("Going to sleep for " + fmt.Sprintf("%d", sleepTime) + " minute(s)")
+		time.Sleep(time.Duration(sleepTime) * time.Minute)
 	}
 }
 
