@@ -85,6 +85,12 @@ func checkSite(url string) int {
 }
 
 func rebootRouter() {
+	defer func() {
+		if r := recover(); r != nil {
+			log("Request to login/reboot router failed")
+		}
+	}()
+
 	loginCookie := loginToRouter()
 	sendRebootRequest(loginCookie)
 }
